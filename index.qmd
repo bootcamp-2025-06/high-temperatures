@@ -33,3 +33,27 @@ boston_daily <- x %>%
   # Remove any infinite values
   filter(is.finite(max_temp_f))
 ```
+
+
+
+
+```{r}
+boston_daily %>%
+  filter(year(date_only) >= 1979 & year(date_only) <= 2021) %>%
+  mutate(
+    year = year(date_only),
+    day_of_year = yday(date_only)
+  ) %>%
+  ggplot(aes(x = day_of_year, y = max_temp_f)) +
+  geom_point(alpha = 0.6, size = 0.5, color = "gray40") +
+  labs(
+    title = "Daily maximum temperatures in Boston, 1979-2021",
+    x = "Day of Year",
+    y = "deg. Fahrenheit"
+  ) +
+  scale_x_continuous(breaks = c(1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335),
+                     labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")) +
+  scale_y_continuous(limits = c(0, 120)) +
+  theme_minimal()
+```
