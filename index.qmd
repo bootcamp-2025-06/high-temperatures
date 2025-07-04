@@ -1,10 +1,14 @@
 ---
-title: "High Temperatures"
+execute: 
+  echo: false
 ---
 
 
 ```{r}
+#| message: false
 library(tidyverse)
+
+x <- read_rds("boston.rds")
 ```
 
 
@@ -39,7 +43,7 @@ boston_daily <- x %>%
 
 ```{r}
 boston_daily %>%
-  filter(year(date_only) >= 1979 & year(date_only) <= 2021) %>%
+  filter(year(date_only) >= 1975 & year(date_only) <= 2025) %>%
   mutate(
     year = year(date_only),
     day_of_year = yday(date_only)
@@ -47,9 +51,9 @@ boston_daily %>%
   ggplot(aes(x = day_of_year, y = max_temp_f)) +
   geom_point(alpha = 0.6, size = 0.5, color = "gray40") +
   labs(
-    title = "Daily maximum temperatures in Boston, 1979-2021",
-    x = "Day of Year",
-    y = "deg. Fahrenheit"
+    title = "Daily maximum temperatures in Boston, 1975-2025",
+    x = NULL,
+    y = "Temperature"
   ) +
   scale_x_continuous(breaks = c(1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335),
                      labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
